@@ -2,30 +2,44 @@ const app = Vue.createApp({
   // template: '<h2>Hola , esto es una template</h2>'
   data() {
     return {
-      showTitle: true,
-      title: 'Hola desde Vue!',
-      originalTitle: 'Hola desde Vue!',
-      newTitle: 'Has cambiado el titulo',
+      show: true,
+      title: {
+        value: 'Hola desde Vue!!',
+        original: 'Hola desde Vue!',
+        newTitle: 'Has cambiado el titulo'
+      },
       description: 'Ahora podemos escribir desde Vue',
       age: 24,
+      maxAge: 30,
+      minAge: 1
     }
   },
   methods: {
-    changeTitle() {
-      this.title = 'Has cambiado el titulo'
+    toggleShowContent() {
+      this.show = !this.show;
     },
-    undoTitle() {
-      this.title = this.originalTitle
-      console.log('funciona')
+    toggleTitle() {
+      if (this.title.value !== this.title.original) {
+        this.title.value = this.title.original;
+      } else {
+        this.title.value = this.title.newTitle;
+      }
     },
-    hideEverything() {
-      this.showTitle = !this.showTitle
+    incrementAge() {
+      if (this.age >= this.maxAge) {
+        return false;
+      }
+
+      this.age++;
     },
-    changeTitleConditional() {
-      this.title = this.newTitle
+    decrementAge() {
+      if (this.age <= this.minAge) {
+        return false;
+      }
+
+      this.age--;
     }
   }
-}
-);
+});
 
 app.mount('#app');

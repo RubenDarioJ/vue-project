@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-</head>
-<body>
-  <div id="app">
-    <!-- controlamos todo lo que este aqui porque le decimos a vue que esta en app -->
-    <h1>{{title}}</h1>
-    <div v-if="showTitle">
-    <p>{{description}}</p>
-    <p>{{age}}</p>
-    <button v-on:click="age++">Aumentar edad</button>
-    <button v-on:click="age--">Disminuir edad</button>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- controlamos todo lo que este aqui porque le decimos a vue que esta en app -->
+      <h1>{{ title.value }}</h1>
 
-    <!-- <button @click="title = 'Ha cambiado el titulo'">Hazme click para cambiar el nombre!</button> -->
-    <button @click="changeTitleConditional()">
-      <span>Hazme click para cambiar el titulo!</span>
-    </button>
-    <button @click="undoTitle()">Deshacer</button>
-  </div>
+      <button @click="toggleShowContent">
+        {{ show ? 'Mostrar todo' : 'Ocultar todo' }}
+        {{ show ? '😗' : '🤖' }}
+      </button>
 
-    <button @click="hideEverything()">
-      <span v-if="showTitle">Ocultar todo</span>
-      <span v-else>Mostrar todo</span>
-    </button>
-  </div>
-<script src="app.js"></script>
-</body>
+      <div v-if="show">
+        <p>{{ description }}</p>
+        <p>{{ age }}</p>
+        <button :disabled="age >= maxAge" v-on:click="incrementAge()">Aumentar edad</button>
+        <button :disabled="age <= minAge" v-on:click="decrementAge()">Disminuir edad</button>
+
+        <!-- <button @click="title = 'Ha cambiado el titulo'">Hazme click para cambiar el nombre!</button> -->
+        <button @click="toggleTitle">
+          {{ title.value !== title.newTitle ? 'Hazme click para cambiar el titulo!' : 'Deshacer' }}
+        </button>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
 </html>
